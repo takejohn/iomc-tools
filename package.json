@@ -1,8 +1,22 @@
 {
-  "name": "iomc-tools",
-  "version": "0.1.0",
-  "description": "",
-  "author": "Take-John (https://takejohn.jp/)",
-  "license": "MIT",
-  "packageManager": "pnpm@10.20.0"
+	"name": "iomc-tools",
+	"version": "0.1.0",
+	"description": "",
+	"author": "Take-John (https://takejohn.jp/)",
+	"license": "MIT",
+	"packageManager": "pnpm@10.20.0",
+	"scripts": {
+		"dev": "concurrently --names backend,frontend \"pnpm --filter backend dev\" \"pnpm --filter frontend dev\"",
+		"lint": "pnpm exec eslint \"packages/**/*.{ts,tsx,vue}\" --fix"
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.39.1",
+		"@stylistic/eslint-plugin": "^5.5.0",
+		"@typescript-eslint/eslint-plugin": "^8.46.3",
+		"@typescript-eslint/parser": "^8.46.3",
+		"concurrently": "^9.2.1",
+		"eslint": "^9.39.1",
+		"eslint-config-prettier": "^10.1.8",
+		"typescript-eslint": "^8.46.3"
+	}
 }
