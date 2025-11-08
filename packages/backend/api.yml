@@ -1,0 +1,31 @@
+openapi: '3.0.3'
+info:
+  title: iomc-tools API
+  version: '0.1.0'
+servers:
+  - url: https://iomc-tools.takejohn.jp/api
+paths:
+  /health:
+    get:
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  ok:
+                    type: boolean
+                    enum: [true]
+                  time:
+                    type: string
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                properties:
+                  ok:
+                    type: boolean
+                    enum: [false]

@@ -18,6 +18,25 @@ app.register(import('@fastify/cors'), {
 	origin: true,
 });
 
+app.register(import('@fastify/swagger'), {
+	openapi: {
+		openapi: '3.0.3',
+		info: {
+			title: 'iomc-tools API',
+			version: '0.1.0',
+		},
+		servers: [
+			{
+				url: 'https://iomc-tools.takejohn.jp/api',
+			},
+		],
+	},
+});
+
+app.register(import('@fastify/swagger-ui'), {
+	routePrefix: '/api-doc',
+});
+
 app.register(healthRoute);
 
 const frontendDist = path.resolve(import.meta.dirname, '../../frontend/dist');
@@ -29,7 +48,8 @@ app.register(fastifyStatic, {
 app.setNotFoundHandler((req, reply) => {
 	if (req.raw.url?.startsWith('/api')) {
 		reply.status(404).send({ error: 'Not Found' });
-	} else {
+	}
+	else {
 		reply.sendFile('index.html');
 	}
 });
