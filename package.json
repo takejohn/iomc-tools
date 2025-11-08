@@ -1,0 +1,8 @@
+{
+  "name": "iomc-tools",
+  "version": "0.1.0",
+  "description": "",
+  "author": "Take-John (https://takejohn.jp/)",
+  "license": "MIT",
+  "packageManager": "pnpm@10.20.0"
+}
