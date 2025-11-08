@@ -35,6 +35,9 @@ importers:
 
   packages/backend:
     dependencies:
+      '@fastify/cors':
+        specifier: ^11.1.0
+        version: 11.1.0
       '@fastify/static':
         specifier: ^8.3.0
         version: 8.3.0
@@ -51,9 +54,6 @@ importers:
         specifier: ^8.16.3
         version: 8.16.3
     devDependencies:
-      '@fastify/cors':
-        specifier: ^11.1.0
-        version: 11.1.0
       '@types/node':
         specifier: ^24.10.0
         version: 24.10.0
