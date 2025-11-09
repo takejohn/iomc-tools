@@ -18,6 +18,7 @@ export const authCallbackRoutes: FastifyPluginAsync = async (fastify) => {
 		const res = await fetch(`https://misskey.io/api/miauth/${session}/check`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
+			body: '{}',
 		});
 		const data = await res.json();
 
@@ -26,6 +27,8 @@ export const authCallbackRoutes: FastifyPluginAsync = async (fastify) => {
 		}
 
 		const user: Misskey.entities.User = data.user;
+		fastify.log.info(user);
+
 		const repo = AppDataSource.getRepository(User);
 
 		let existing = await repo.findOne({ where: { misskeyId: user.id } });

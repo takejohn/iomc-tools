@@ -1,13 +1,13 @@
 import Fastify from 'fastify';
-import dotenv from 'dotenv';
 import path from 'node:path';
 import fastifyStatic from '@fastify/static';
 import { jsonSchemaTransform, serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod';
 
 import { apiRoute } from './routes/api.js';
 import { getConfig } from './utils/config.js';
+import { AppDataSource } from './utils/db.js';
 
-dotenv.config();
+await AppDataSource.initialize();
 
 const app = Fastify({ logger: true });
 const port = Number(getConfig('PORT')) || 3000;
