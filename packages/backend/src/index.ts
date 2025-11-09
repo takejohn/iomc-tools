@@ -2,16 +2,22 @@ import Fastify from 'fastify';
 import dotenv from 'dotenv';
 import path from 'node:path';
 import fastifyStatic from '@fastify/static';
+import { jsonSchemaTransform, serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod';
+
 import { apiRoute } from './routes/api';
+import { getConfig } from './utils/config';
 
 dotenv.config();
 
 const app = Fastify({ logger: true });
-const port = Number(process.env.PORT) || 3000;
+const port = Number(getConfig('PORT')) || 3000;
 
 app.register(import('@fastify/cors'), {
 	origin: true,
 });
+
+app.setValidatorCompiler(validatorCompiler);
+app.setSerializerCompiler(serializerCompiler);
 
 app.register(import('@fastify/swagger'), {
 	openapi: {
@@ -22,10 +28,11 @@ app.register(import('@fastify/swagger'), {
 		},
 		servers: [
 			{
-				url: 'https://iomc-tools.takejohn.jp/api',
+				url: `${getConfig('APP_ORIGIN')}/api`,
 			},
 		],
 	},
+	transform: jsonSchemaTransform,
 });
 
 app.register(import('@fastify/swagger-ui'), {

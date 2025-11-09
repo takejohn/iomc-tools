@@ -5,7 +5,9 @@
 		"outDir": "dist",
 		"module": "esnext",
 		"target": "es2022",
-		"moduleResolution": "node"
+		"moduleResolution": "node",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
 	},
 	"include": ["src"]
 }

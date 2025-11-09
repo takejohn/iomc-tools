@@ -1,45 +1,26 @@
-import { FastifyPluginCallback } from 'fastify';
-import { getPool } from '../../db.js';
+import { FastifyPluginAsync } from 'fastify';
+import z from 'zod';
 
-export const pingRoute: FastifyPluginCallback = (fastify, opts, done) => {
+export const pingRoutes: FastifyPluginAsync = async (fastify) => {
 	fastify.get('/ping', {
 		schema: {
 			response: {
-				200: {
-					description: 'OK',
-					type: 'object',
-					properties: {
-						ok: {
-							type: 'boolean',
-							enum: [true],
-						},
-						time: {
-							type: 'string',
-						},
-					},
-				},
-				500: {
-					description: 'Internal Server Error',
-					type: 'object',
-					properties: {
-						ok: {
-							type: 'boolean',
-							enum: [false],
-						},
-					},
-				},
+				200: z.object({
+					ok: z.literal(true),
+					time: z.string(),
+				}).describe('OK'),
+				500: z.object({
+					ok: z.literal(false),
+				}).describe('Internal Server Error'),
 			},
 		},
 	}, async (_req, reply) => {
 		try {
-			const result = await getPool().query('SELECT NOW()');
-			reply.send({ ok: true, time: result.rows[0].now });
+			reply.send({ ok: true, time: (new Date()).toString() });
 		}
 		catch (err) {
 			fastify.log.error(err);
 			reply.status(500).send({ ok: false });
 		}
 	});
-
-	done();
 };
