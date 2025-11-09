@@ -5,10 +5,11 @@
 	"author": "Take-John (https://takejohn.jp/)",
 	"license": "MIT",
 	"packageManager": "pnpm@10.20.0",
+	"type": "module",
 	"scripts": {
 		"dev": "concurrently --names backend,frontend \"pnpm --filter backend dev\" \"pnpm --filter frontend dev\"",
-		"lint": "pnpm exec eslint \"packages/**/*.{ts,tsx,vue}\" --fix",
-		"lint-only": "pnpm exec eslint \"packages/**/*.{ts,tsx,vue}\"",
+		"lint": "pnpm -r run lint",
+		"lint-only": "pnpm -r run lint-only",
 		"build": "pnpm -r run build",
 		"start": "pnpm --filter backend start",
 		"prepare": "husky"

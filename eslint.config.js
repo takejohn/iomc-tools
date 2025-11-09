@@ -19,9 +19,5 @@ export default defineConfig([
 				tsconfigRootDir: import.meta.dirname,
 			},
 		},
-		ignores: [
-			'dist',
-			'node_modules',
-		],
 	},
 ]);

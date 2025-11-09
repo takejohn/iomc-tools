@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
-import { fetchPing } from "./api";
+import { ref, onMounted } from 'vue';
+import { fetchPing } from './api';
 
-const message = ref("Loading...");
+const message = ref('Loading...');
 
 onMounted(async () => {
 	const result = await fetchPing();
-	message.value = result.ok ? `Server time: ${result.time}` : "Error";
+	message.value = result.ok ? `Server time: ${result.time}` : 'Error';
 });
 </script>
 

@@ -2,12 +2,17 @@
 
 import pluginVue from 'eslint-plugin-vue';
 import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript';
-import rootConfig from '../../eslintrc.config.js';
+import rootConfig from '../../eslint.config.js';
 
 export default defineConfigWithVueTs([
 	rootConfig,
 	pluginVue.configs['flat/essential'],
 	vueTsConfigs.recommended,
+	{
+		ignores: [
+			'dist',
+		],
+	},
 	{
 		languageOptions: {
 			parserOptions: {
@@ -17,7 +22,12 @@ export default defineConfigWithVueTs([
 			},
 		},
 		rules: {
-			"vue/multi-word-component-names": "off"
-		}
-	}
+			'vue/multi-word-component-names': 'off',
+		},
+		files: [
+			'eslint.config.js',
+			'vite.config.ts',
+			'src/**/*.{ts,vue}',
+		],
+	},
 ]);
