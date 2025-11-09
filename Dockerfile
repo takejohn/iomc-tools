@@ -42,7 +42,7 @@ COPY --from=builder /app/packages/backend/dist packages/backend/dist
 COPY --from=builder /app/packages/frontend/dist packages/frontend/dist
 
 # 実行に必要な依存だけインストール
-RUN pnpm install --prod --frozen-lockfile
+RUN pnpm install --prod --frozen-lockfile --ignore-scripts
 
 # 環境変数設定
 ENV NODE_ENV=production

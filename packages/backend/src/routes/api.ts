@@ -1,6 +1,6 @@
 import { FastifyPluginAsync } from 'fastify';
-import { pingRoutes } from './api/ping';
-import { authRoutes } from './api/auth';
+import { pingRoutes } from './api/ping.js';
+import { authRoutes } from './api/auth.js';
 
 export const apiRoute: FastifyPluginAsync = async (fastify) => {
 	await fastify.register(pingRoutes);

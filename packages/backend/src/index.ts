@@ -4,8 +4,8 @@ import path from 'node:path';
 import fastifyStatic from '@fastify/static';
 import { jsonSchemaTransform, serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod';
 
-import { apiRoute } from './routes/api';
-import { getConfig } from './utils/config';
+import { apiRoute } from './routes/api.js';
+import { getConfig } from './utils/config.js';
 
 dotenv.config();
 
@@ -56,7 +56,7 @@ app.setNotFoundHandler((req, reply) => {
 	}
 });
 
-app.listen({ port }, (err, address) => {
+app.listen({ port, host: '0.0.0.0' }, (err, address) => {
 	if (err) {
 		app.log.error(err);
 		process.exit(1);

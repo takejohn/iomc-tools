@@ -2,7 +2,7 @@ import { FastifyPluginAsync } from 'fastify';
 import { randomUUID } from 'crypto';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
-import { getConfig } from '../../../utils/config';
+import { getConfig } from '../../../utils/config.js';
 
 export const authStartRoutes: FastifyPluginAsync = async (fastify) => {
 	fastify.withTypeProvider<ZodTypeProvider>().get('/start', {
