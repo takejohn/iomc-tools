@@ -1,8 +1,8 @@
-import { FastifyInstance } from 'fastify';
-import { pool } from '../index.js';
+import { FastifyPluginCallback } from 'fastify';
+import { getPool } from '../../db.js';
 
-export default async function healthRoute(app: FastifyInstance) {
-	app.get('/api/health', {
+export const pingRoute: FastifyPluginCallback = (fastify, opts, done) => {
+	fastify.get('/ping', {
 		schema: {
 			response: {
 				200: {
@@ -32,12 +32,14 @@ export default async function healthRoute(app: FastifyInstance) {
 		},
 	}, async (_req, reply) => {
 		try {
-			const result = await pool.query('SELECT NOW()');
+			const result = await getPool().query('SELECT NOW()');
 			reply.send({ ok: true, time: result.rows[0].now });
 		}
 		catch (err) {
-			app.log.error(err);
+			fastify.log.error(err);
 			reply.status(500).send({ ok: false });
 		}
 	});
-}
+
+	done();
+};

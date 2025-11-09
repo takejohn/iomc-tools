@@ -1,18 +1,13 @@
 import Fastify from 'fastify';
 import dotenv from 'dotenv';
-import { Pool } from 'pg';
 import path from 'node:path';
 import fastifyStatic from '@fastify/static';
-import healthRoute from './routes/health.js';
+import { apiRoute } from './routes/api';
 
 dotenv.config();
 
 const app = Fastify({ logger: true });
 const port = Number(process.env.PORT) || 3000;
-
-export const pool = new Pool({
-	connectionString: process.env.DATABASE_URL,
-});
 
 app.register(import('@fastify/cors'), {
 	origin: true,
@@ -37,7 +32,7 @@ app.register(import('@fastify/swagger-ui'), {
 	routePrefix: '/api-doc',
 });
 
-app.register(healthRoute);
+app.register(apiRoute, { prefix: '/api' });
 
 const frontendDist = path.resolve(import.meta.dirname, '../../frontend/dist');
 app.register(fastifyStatic, {

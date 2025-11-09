@@ -1,4 +1,4 @@
-export async function fetchHealth() {
-	const res = await fetch('/api/health');
+export async function fetchPing() {
+	const res = await fetch('/api/ping');
 	return await res.json();
 }
