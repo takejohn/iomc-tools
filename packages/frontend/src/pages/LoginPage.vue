@@ -1,12 +1,15 @@
 <template>
 	<div class="login">
-		<h1>Login with Misskey.io</h1>
-		<button @click="startLogin">Log in</button>
+		<h1>ログイン</h1>
+		<SimpleButton @click="startLogin">
+			Misskey.ioでログイン
+		</SimpleButton>
 	</div>
 </template>
 
 <script setup lang="ts">
 import { apiClient } from 'api-sdk';
+import SimpleButton from '../components/SimpleButton.vue';
 
 async function startLogin() {
 	const res = await apiClient.GET('/auth/start');
