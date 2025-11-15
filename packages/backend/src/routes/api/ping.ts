@@ -17,8 +17,7 @@ export const pingRoutes: FastifyPluginAsync = async (fastify) => {
 	}, async (_req, reply) => {
 		try {
 			reply.send({ ok: true, time: (new Date()).toString() });
-		}
-		catch (err) {
+		} catch (err) {
 			fastify.log.error(err);
 			reply.status(500).send({ ok: false });
 		}

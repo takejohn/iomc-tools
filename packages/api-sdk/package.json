@@ -1,0 +1,24 @@
+{
+	"name": "api-sdk",
+	"type": "module",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		}
+	},
+	"scripts": {
+		"generate-schema": "tsx scripts/generate-schema.ts",
+		"prebuild": "pnpm generate-schema",
+		"build": "tsc"
+	},
+	"devDependencies": {
+		"backend": "file:../backend",
+		"openapi-typescript": "^7.10.1",
+		"tsx": "^4.20.6",
+		"typescript": "^5.9.3"
+	},
+	"dependencies": {
+		"openapi-fetch": "^0.15.0"
+	}
+}

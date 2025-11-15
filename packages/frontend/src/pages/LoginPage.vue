@@ -6,9 +6,11 @@
 </template>
 
 <script setup lang="ts">
+import { apiClient } from 'api-sdk';
+
 async function startLogin() {
-	const res = await fetch('/api/auth/start');
-	const data = await res.json();
+	const res = await apiClient.GET('/auth/start');
+	const data = res.data!;
 	window.location.href = data.url; // Misskey.ioへリダイレクト
 }
 </script>

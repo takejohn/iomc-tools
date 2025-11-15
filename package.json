@@ -4,13 +4,13 @@
 	"description": "",
 	"author": "Take-John (https://takejohn.jp/)",
 	"license": "MIT",
-	"packageManager": "pnpm@10.20.0",
+	"packageManager": "pnpm@10.22.0",
 	"type": "module",
 	"scripts": {
 		"dev": "concurrently --names backend,frontend \"pnpm --filter backend dev\" \"pnpm --filter frontend dev\"",
 		"lint": "pnpm -r run lint",
 		"lint-only": "pnpm -r run lint-only",
-		"build": "pnpm -r run build",
+		"build": "pnpm --filter=backend run build && pnpm --filter=api-sdk run build && pnpm --filter=frontend run build",
 		"start": "pnpm --filter backend start",
 		"prepare": "husky"
 	},

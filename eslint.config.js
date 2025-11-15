@@ -13,6 +13,7 @@ export default defineConfig([
 		indent: 'tab',
 		quotes: 'single',
 		semi: true,
+		braceStyle: '1tbs',
 	}),
 	{
 		plugins: {
