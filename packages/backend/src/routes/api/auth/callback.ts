@@ -26,23 +26,38 @@ export const authCallbackRoutes: FastifyPluginAsync = async (fastify) => {
 			return reply.status(401).send({ error: 'Authentication failed' });
 		}
 
-		const user: Misskey.entities.User = data.user;
-		fastify.log.info(user);
+		const misskeyUser: Misskey.entities.User = data.user;
+		fastify.log.info(misskeyUser);
 
 		const repo = AppDataSource.getRepository(User);
 
-		let existing = await repo.findOne({ where: { misskeyId: user.id } });
-		if (!existing) {
-			existing = repo.create({
-				misskeyId: user.id,
-				username: user.username,
-				host: user.host ?? 'misskey.io',
-				avatarUrl: user.avatarUrl,
+		let appUser = await repo.findOne({ where: { misskeyId: misskeyUser.id } });
+		if (!appUser) {
+			appUser = repo.create({
+				misskeyId: misskeyUser.id,
+				username: misskeyUser.username,
+				host: misskeyUser.host ?? 'misskey.io',
+				avatarUrl: misskeyUser.avatarUrl,
 			});
-			await repo.save(existing);
+			await repo.save(appUser);
 		}
 
-		// JWTなどを発行する場合はここ
-		return reply.redirect(`${process.env.APP_ORIGIN}/?login=success`);
+		const payload = {
+			id: appUser.id,
+		};
+
+		const jwt = fastify.jwt.sign(payload, {
+			expiresIn: '7d',
+		});
+
+		reply.setCookie('auth', jwt, {
+			httpOnly: true,
+			secure: true,
+			sameSite: 'lax',
+			path: '/',
+			maxAge: 60 * 60 * 24 * 7,
+		});
+
+		reply.redirect('/');
 	});
 };

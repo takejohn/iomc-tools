@@ -14,6 +14,7 @@ export default defineConfig([
 		quotes: 'single',
 		semi: true,
 		braceStyle: '1tbs',
+		arrowParens: true,
 	}),
 	{
 		plugins: {

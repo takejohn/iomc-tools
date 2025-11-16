@@ -11,10 +11,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import MainHeader from './components/MainHeader.vue';
 import Modal from './components/Modal.vue';
 import { provideModalController } from './scripts/dialog.js';
+import { useAuthStore } from './stores/auth.js';
+
+const auth = useAuthStore();
+
+onMounted(() => {
+	auth.load();
+});
 
 const modal = ref<InstanceType<typeof Modal>>();
 const modalController = provideModalController(() => modal.value!);
